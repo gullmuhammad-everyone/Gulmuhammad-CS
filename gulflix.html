@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gul Muhammad | Computer Operator | Data Entry Specialist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --netflix-red: #e50914;
+            --netflix-dark: #141414;
+            --netflix-gray: #2f2f2f;
+            --netflix-light: #f5f5f1;
+            --electric-green: #39ff14;
+            --electric-cyan: #00ffff;
+            --purple-neon: #bc13fe;
+            --terminal-green: #00ff00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--netflix-dark);
+            color: var(--netflix-light);
+            overflow-x: hidden;
+        }
+
+        /* Netflix Header */
+        .netflix-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, transparent);
+            transition: background 0.3s;
+        }
+
+        .netflix-header.scrolled {
+            background-color: var(--netflix-dark);
+        }
+
+        .netflix-logo {
+            color: var(--netflix-red);
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--netflix-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--netflix-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23141414"/><path d="M0 0L100 100M100 0L0 100" stroke="%23333" stroke-width="1"/></svg>');
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1s;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.5s;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--netflix-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #f40612;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(109, 109, 110, 0.9);
+            transform: scale(1.05);
+        }
+
+        /* Netflix-style content rows */
+        .content-row {
+            padding: 3rem 0;
+        }
+
+        .row-header {
+            padding: 0 3rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .content-cards {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0 3rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .content-cards::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            min-width: 300px;
+            height: 170px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+            background-color: var(--netflix-gray);
+        }
+
+        .card:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .card-large {
+            min-width: 400px;
+            height: 250px;
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .card-content {
+            opacity: 1;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 5rem 3rem;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            height: 500px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--netflix-red);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 5rem 3rem;
+            background-color: rgba(20, 20, 20, 0.9);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background-color: var(--netflix-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--netflix-red);
+        }
+
+        .skill-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--netflix-red);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 3rem;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23141414"/><path d="M0 0L100 100M100 0L0 100" stroke="%23333" stroke-width="1"/></svg>');
+            background-size: cover;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--netflix-red);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--netflix-red);
+        }
+
+        .qr-container {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Download Section */
+        .download-section {
+            padding: 5rem 3rem;
+            text-align: center;
+            background-color: var(--netflix-gray);
+        }
+
+        .download-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .download-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--netflix-red);
+        }
+
+        .download-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .netflix-footer {
+            padding: 3rem;
+            text-align: center;
+            background-color: var(--netflix-dark);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--netflix-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--netflix-red);
+        }
+
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Terminal Effect */
+        .terminal-container {
+            background-color: #000;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            color: var(--terminal-green);
+            box-shadow: 0 0 20px rgba(0,255,0,0.2);
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: typeLine 0.5s forwards;
+        }
+
+        @keyframes typeLine {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: var(--terminal-green);
+            animation: blink 1s infinite;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .netflix-header {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-section {
+                flex-direction: column;
+                padding: 3rem 1rem;
+            }
+
+            .content-cards {
+                padding: 0 1rem;
+            }
+
+            .card {
+                min-width: 200px;
+                height: 120px;
+            }
+
+            .card-large {
+                min-width: 250px;
+                height: 150px;
+            }
+
+            .skills-section, .contact-section, .download-section {
+                padding: 3rem 1rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Netflix Loading Animation */
+        .netflix-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--netflix-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loader-logo {
+            color: var(--netflix-red);
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            animation: loaderPulse 1.5s infinite;
+        }
+
+        @keyframes loaderPulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .matrix-character {
+            position: absolute;
+            color: var(--terminal-green);
+            font-family: 'Courier New', monospace;
+            animation: matrix-fall linear forwards;
+        }
+
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Stats Counter */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--netflix-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--netflix-light);
+        }
+
+        /* Interactive Typing Test */
+        .typing-test {
+            background-color: var(--netflix-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .typing-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+
+        .typing-input {
+            width: 100%;
+            height: 100px;
+            background-color: rgba(0,0,0,0.5);
+            border: 1px solid var(--netflix-red);
+            border-radius: 4px;
+            color: white;
+            padding: 1rem;
+            font-size: 1rem;
+            resize: none;
+            margin-bottom: 1rem;
+        }
+
+        .typing-stats {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .typing-stat {
+            text-align: center;
+        }
+
+        .typing-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--netflix-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <div class="matrix-rain" id="matrixRain"></div>
+
+    <!-- Netflix Loading Animation -->
+    <div class="netflix-loader" id="loader">
+        <div class="loader-logo">GULFLIX</div>
+    </div>
+
+    <!-- Netflix Header -->
+    <header class="netflix-header" id="header">
+        <a href="#" class="netflix-logo">GULFLIX</a>
+        <nav class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#stats">Stats</a>
+            <a href="#contact">Contact</a>
+            <a href="#download" class="btn btn-primary">Download CV</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>GUL MUHAMMAD</h1>
+            <p>Computer Operator | Data Entry Specialist | HMIS Administrator</p>
+            <p>Ready for Opportunities in Saudi Arabia</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="playBtn">
+                    <i class="fas fa-play"></i> Hire Now
+                </button>
+                <button class="btn btn-secondary" id="moreInfoBtn">
+                    <i class="fas fa-info-circle"></i> More Info
+                </button>
+                <button class="btn btn-secondary" id="typingTestBtn">
+                    <i class="fas fa-keyboard"></i> Test My Speed
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="content-row" id="stats">
+        <h2 class="row-header">Performance Metrics</h2>
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" id="typingStat">0</div>
+                <div class="stat-label">CPM Typing Speed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="accuracyStat">0</div>
+                <div class="stat-label">Data Accuracy %</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="experienceStat">0</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="systemsStat">0</div>
+                <div class="stat-label">Systems Mastered</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-image">
+            <!-- Your profile picture will be loaded here -->
+            <img src="mypic.jpg" alt="Gul Muhammad" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-user\' style=\'font-size: 5rem;\'></i><p>Profile Image</p>';">
+        </div>
+        <div class="about-content">
+            <h2>About Me</h2>
+            <p>Results-driven IT professional with 5+ years of experience in HMIS administration, data management, and technical support. Proven expertise in computer operations, document control, and data entry with 99.9% accuracy.</p>
+            <p>Specialized in healthcare data systems, inventory management, and process optimization. Seeking Computer Operator position in Saudi Arabia (Riyadh, Jeddah, Dammam, Al Khobar).</p>
+            
+            <div class="terminal-container">
+                <div class="terminal-line">> System: GulOS v2.0</div>
+                <div class="terminal-line">> Status: Operational</div>
+                <div class="terminal-line">> Location: Pakistan | Ready for KSA</div>
+                <div class="terminal-line">> Skills: HMIS, Data Entry, Computer Operations<span class="terminal-cursor"></span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section" id="skills">
+        <h2 class="row-header">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3 class="skill-title">Computer Operations</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="95"></div>
+                </div>
+                <p>Expert in system administration, troubleshooting, and maintenance</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="skill-title">Data Entry</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="98"></div>
+                </div>
+                <p>450+ CPM with 99.9% accuracy in data processing</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <h3 class="skill-title">HMIS Administration</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="90"></div>
+                </div>
+                <p>Experienced in hospital management information systems</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                <h3 class="skill-title">MS Office Suite</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="92"></div>
+                </div>
+                <p>Advanced skills in Excel, Word, and PowerPoint</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3 class="skill-title">Networking</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="85"></div>
+                </div>
+                <p>Basic networking setup and troubleshooting</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="skill-title">Cybersecurity</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="80"></div>
+                </div>
+                <p>Data protection and security awareness</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="content-row" id="experience">
+        <h2 class="row-header">Work Experience</h2>
+        <div class="content-cards">
+            <div class="card card-large">
+                <div class="card-content">
+                    <h3 class="card-title">HMIS Administrator</h3>
+                    <p>Rizwan General Hospital | 2022-Present</p>
+                    <p>Managed 500+ bed facility with 1000+ daily patient records</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Computer Operator</h3>
+                    <p>Fida General Hospital | 2021-2022</p>
+                    <p>System monitoring and data integrity</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Data Entry Specialist</h3>
+                    <p>Shifa General Hospital | 2020-2021</p>
+                    <p>Accurate data input and maintenance</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="card-title">Store Manager</h3>
+                    <p>Rohan Mart | 2019-2020</p>
+                    <p>Inventory control and staff management</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typing Test Section -->
+    <section class="content-row" id="typingTestSection">
+        <h2 class="row-header">Live Typing Speed Test</h2>
+        <div class="typing-test">
+            <div class="typing-text" id="typingText">
+                The quick brown fox jumps over the lazy dog. This sentence contains all letters of the English alphabet. Data entry professionals must maintain high accuracy while typing at impressive speeds to meet industry standards.
+            </div>
+            <textarea class="typing-input" id="typingInput" placeholder="Start typing the text above to test your speed..."></textarea>
+            <div class="typing-stats">
+                <div class="typing-stat">
+                    <div class="typing-value" id="typingTimer">60</div>
+                    <div class="stat-label">Seconds</div>
+                </div>
+                <div class="typing-stat">
+                    <div class="typing-value" id="typingCpm">0</div>
+                    <div class="stat-label">CPM</div>
+                </div>
+                <div class="typing-stat">
+                    <div class="typing-value" id="typingAccuracy">0%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="startTypingTest">Start Test</button>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <p>+92 347 9572863</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <p>gulmuhammadyt@gmail.com</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <p>Battagram, KPK, Pakistan</p>
+            </div>
+        </div>
+        
+        <div class="qr-container">
+            <p>Scan to contact me on WhatsApp</p>
+            <div class="qr-code">
+                <!-- QR Code would be generated here -->
+                <div style="text-align: center;">
+                    <i class="fab fa-whatsapp" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                    <p>WhatsApp: +92 347 9572863</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary pulse" id="whatsappBtn">
+            <i class="fab fa-whatsapp"></i> Contact on WhatsApp
+        </button>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download-section" id="download">
+        <div class="download-container">
+            <h2>Download My CV</h2>
+            <p>Get my complete professional profile with detailed experience, education, and certifications. Ready to share with potential employers in Saudi Arabia.</p>
+            <button class="btn btn-primary" id="downloadBtn" style="padding: 1rem 3rem; font-size: 1.2rem;">
+                <i class="fas fa-download"></i> Download CV (PDF)
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="netflix-footer">
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+            <a href="#download">Download CV</a>
+        </div>
+        <p class="copyright">© 2023 Gul Muhammad. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader after page loads
+            setTimeout(function() {
+                document.getElementById('loader').style.display = 'none';
+            }, 2000);
+
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.getElementById('header');
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Animate skill bars when they come into view
+            const skillBars = document.querySelectorAll('.skill-progress');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.getAttribute('data-width');
+                        entry.target.style.width = width + '%';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            skillBars.forEach(bar => {
+                observer.observe(bar);
+            });
+
+            // Terminal typing effect
+            const terminalLines = document.querySelectorAll('.terminal-line');
+            terminalLines.forEach((line, index) => {
+                line.style.animationDelay = (index * 0.5) + 's';
+            });
+
+            // Button click handlers
+            document.getElementById('playBtn').addEventListener('click', function() {
+                alert('🚨 EMERGENCY HIRE MODE ACTIVATED! 🚨\n\nContacting Gul Muhammad for immediate deployment to Saudi Arabia...');
+                window.open('https://wa.me/923479572863?text=Assalam%20Alaikum%2C%20I%20saw%20your%20portfolio%20%E2%80%93%20you%20are%20hired!%20When%20can%20you%20join%3F', '_blank');
+            });
+
+            document.getElementById('moreInfoBtn').addEventListener('click', function() {
+                document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            document.getElementById('whatsappBtn').addEventListener('click', function() {
+                window.open('https://wa.me/923479572863?text=Assalam%20Alaikum%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20opportunities.', '_blank');
+            });
+
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                // Create a fake download experience
+                const btn = this;
+                const originalText = btn.innerHTML;
+                
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+                btn.disabled = true;
+                
+                setTimeout(function() {
+                    // Create a link to download the actual CV
+                    const link = document.createElement('a');
+                    link.href = 'My_Cv.pdf';
+                    link.download = 'Gul_Muhammad_CV.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    btn.innerHTML = '<i class="fas fa-check"></i> Download Complete!';
+                    
+                    setTimeout(function() {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }, 3000);
+                }, 2000);
+            });
+
+            // Netflix-style card hover effects
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+
+            // Matrix rain effect
+            function createMatrixRain() {
+                const matrixRain = document.getElementById('matrixRain');
+                const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+                
+                setInterval(() => {
+                    const char = document.createElement('div');
+                    char.className = 'matrix-character';
+                    char.textContent = characters.charAt(Math.floor(Math.random() * characters.length));
+                    char.style.left = Math.random() * 100 + 'vw';
+                    char.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    char.style.opacity = Math.random() * 0.5 + 0.5;
+                    
+                    matrixRain.appendChild(char);
+                    
+                    setTimeout(() => {
+                        if (char.parentNode) {
+                            char.parentNode.removeChild(char);
+                        }
+                    }, 5000);
+                }, 100);
+            }
+            
+            createMatrixRain();
+
+            // Animated stats counter
+            function animateStats() {
+                const typingStat = document.getElementById('typingStat');
+                const accuracyStat = document.getElementById('accuracyStat');
+                const experienceStat = document.getElementById('experienceStat');
+                const systemsStat = document.getElementById('systemsStat');
+                
+                let typingCount = 0;
+                let accuracyCount = 0;
+                let experienceCount = 0;
+                let systemsCount = 0;
+                
+                const typingInterval = setInterval(() => {
+                    typingCount += 5;
+                    typingStat.textContent = typingCount;
+                    if (typingCount >= 450) clearInterval(typingInterval);
+                }, 20);
+                
+                const accuracyInterval = setInterval(() => {
+                    accuracyCount += 1;
+                    accuracyStat.textContent = accuracyCount;
+                    if (accuracyCount >= 99) clearInterval(accuracyInterval);
+                }, 30);
+                
+                const experienceInterval = setInterval(() => {
+                    experienceCount += 1;
+                    experienceStat.textContent = experienceCount;
+                    if (experienceCount >= 5) clearInterval(experienceInterval);
+                }, 200);
+                
+                const systemsInterval = setInterval(() => {
+                    systemsCount += 1;
+                    systemsStat.textContent = systemsCount;
+                    if (systemsCount >= 15) clearInterval(systemsInterval);
+                }, 100);
+            }
+            
+            // Start stats animation when stats section is in view
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateStats();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            statsObserver.observe(document.getElementById('stats'));
+
+            // Typing test functionality
+            const typingTestBtn = document.getElementById('startTypingTest');
+            const typingInput = document.getElementById('typingInput');
+            const typingText = document.getElementById('typingText');
+            const typingTimer = document.getElementById('typingTimer');
+            const typingCpm = document.getElementById('typingCpm');
+            const typingAccuracy = document.getElementById('typingAccuracy');
+            
+            let testActive = false;
+            let testTimer;
+            let timeLeft = 60;
+            let startTime;
+            let totalKeystrokes = 0;
+            let correctKeystrokes = 0;
+            
+            const testTexts = [
+                "The quick brown fox jumps over the lazy dog. This sentence contains all letters of the English alphabet.",
+                "Data entry professionals must maintain high accuracy while typing at impressive speeds to meet industry standards.",
+                "Computer operators in Saudi Arabia need excellent skills in MS Office, data management, and system troubleshooting.",
+                "Efficient keyboard operation is essential for productivity in administrative roles across various industries."
+            ];
+            
+            typingTestBtn.addEventListener('click', function() {
+                if (testActive) {
+                    resetTest();
+                } else {
+                    startTest();
+                }
+            });
+            
+            function startTest() {
+                testActive = true;
+                typingTestBtn.textContent = 'Reset Test';
+                typingInput.disabled = false;
+                typingInput.value = '';
+                typingInput.focus();
+                
+                // Select random text
+                const randomIndex = Math.floor(Math.random() * testTexts.length);
+                typingText.textContent = testTexts[randomIndex];
+                
+                timeLeft = 60;
+                typingTimer.textContent = timeLeft;
+                totalKeystrokes = 0;
+                correctKeystrokes = 0;
+                typingCpm.textContent = '0';
+                typingAccuracy.textContent = '0%';
+                
+                startTime = Date.now();
+                
+                testTimer = setInterval(() => {
+                    timeLeft--;
+                    typingTimer.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        endTest();
+                    }
+                }, 1000);
+                
+                typingInput.addEventListener('input', updateStats);
+            }
+            
+            function updateStats() {
+                totalKeystrokes++;
+                
+                // Calculate CPM
+                const elapsedTime = (Date.now() - startTime) / 1000 / 60; // in minutes
+                const cpm = Math.round(typingInput.value.length / elapsedTime);
+                typingCpm.textContent = cpm;
+                
+                // Calculate accuracy
+                const originalText = typingText.textContent;
+                const typedText = typingInput.value;
+                let correctChars = 0;
+                
+                for (let i = 0; i < typedText.length; i++) {
+                    if (i < originalText.length && typedText[i] === originalText[i]) {
+                        correctChars++;
+                    }
+                }
+                
+                correctKeystrokes = correctChars;
+                const accuracy = Math.round((correctChars / typedText.length) * 100) || 0;
+                typingAccuracy.textContent = accuracy + '%';
+            }
+            
+            function endTest() {
+                clearInterval(testTimer);
+                testActive = false;
+                typingInput.disabled = true;
+                typingTestBtn.textContent = 'Start Test';
+                
+                const finalCpm = parseInt(typingCpm.textContent);
+                const finalAccuracy = typingAccuracy.textContent;
+                
+                let message;
+                if (finalCpm < 100) {
+                    message = `You typed ${finalCpm} CPM with ${finalAccuracy} accuracy. Gul Muhammad does 450+ CPM blindfolded!`;
+                } else if (finalCpm < 250) {
+                    message = `You typed ${finalCpm} CPM with ${finalAccuracy} accuracy. Gul Muhammad does 450+ CPM while drinking coffee!`;
+                } else {
+                    message = `You typed ${finalCpm} CPM with ${finalAccuracy} accuracy. Impressive! But Gul Muhammad still does 450+ CPM with 99.9% accuracy.`;
+                }
+                
+                alert(message);
+            }
+            
+            function resetTest() {
+                clearInterval(testTimer);
+                testActive = false;
+                typingInput.disabled = true;
+                typingTestBtn.textContent = 'Start Test';
+                typingInput.value = '';
+                typingTimer.textContent = '60';
+                typingCpm.textContent = '0';
+                typingAccuracy.textContent = '0%';
+            }
+            
+            // Initialize typing test
+            resetTest();
+            
+            // Typing test button
+            document.getElementById('typingTestBtn').addEventListener('click', function() {
+                document.getElementById('typingTestSection').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
